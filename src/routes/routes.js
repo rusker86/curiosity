@@ -1,21 +1,23 @@
 import { Router } from "express"
 import OpenAI from "openai";
+import fs from "fs/promises"
 import "dotenv/config"
 
 const router = Router()
+/*
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY
 })
-
+*/
 
 
 router.get("/", async(req, res) => {
 	try {
 
-		console.log("→ Petición recibida")
-		console.log("API KEY:", process.env.OPENAI_API_KEY)
+//		console.log("→ Petición recibida")
+//		console.log("API KEY:", process.env.OPENAI_API_KEY)
 
-
+/*
 		const response = await openai.responses.create({
 		model: "gpt-4.1-mini",
 		input: [
@@ -35,9 +37,19 @@ router.get("/", async(req, res) => {
 
 
 		res.render("index", {dato : response.output_text})
+*/
+		let msgError = "No se pudo cargar el dato cultural"
+
+		const data = await fs.readFile("./data/data.json", "utf8")
+
+		const json = JSON.parse(data)
+
+		const rnd =  Math.floor(Math.random() * json.length)
+
+		res.render("index", { dato: json[rnd].msg })
 	} catch(error) {
+		res.render("index", { dato: msgError })
 		console.error(error)
-		res.render("index", { dato: "No se pudo cargar el dato cultural" })
 	}
 })
 
