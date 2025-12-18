@@ -5,7 +5,7 @@ import path from "path"
 const app = express()
 
 app.set("view engine", "ejs")
-app.set("views", path.join(process.cwd(), "public"))
+app.set("views", path.join(process.cwd(), "views"))
 
 app.use(express.static(path.join(process.cwd(), "public")))
 
@@ -16,3 +16,5 @@ app.listen(3000, () => {
 	console.log(`Servidor escuchando en puerto ${3000}`)
 })
 */
+
+export default app
