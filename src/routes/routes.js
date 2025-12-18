@@ -40,7 +40,9 @@ router.get("/", async(req, res) => {
 */
 		let msgError = "No se pudo cargar el dato cultural"
 
-		const data = await fs.readFile("./data/data.json", "utf8")
+		const filePath = path.join(process.cwd(), "data", "data.json")
+
+		const data = await fs.readFile(filePath, "utf8")
 
 		const json = JSON.parse(data)
 
