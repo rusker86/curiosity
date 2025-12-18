@@ -18,10 +18,13 @@
 
 			<form action="/" method="post" id="categoryForm">
 				<select name="category" id="category">
-					<% for(let i = 0; i < categoria.length; i++) { %>
-						<option value="categoria"> <%= categoria[i] %> </option>
-					<%}%>
+					<option value="all" <%= selectedCategory === 'all' ? 'selected' : '' %>>Todas</option>
+					<option value="science" <%= selectedCategory === 'science' ? 'selected' : '' %>>Ciencia</option>
+					<option value="history" <%= selectedCategory === 'history' ? 'selected' : '' %>>Historia</option>
+					<option value="art" <%= selectedCategory === 'art' ? 'selected' : '' %>>Arte</option>
+					<option value="curiosity" <%= selectedCategory === 'curiosity' ? 'selected' : '' %>>Curiosidad</option>
 				</select>
+
 			</form>
 
 			<h2>¿Sabías qué...?</h2>
