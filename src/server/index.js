@@ -11,6 +11,8 @@ app.use(express.static("public"))
 
 app.use(routes)
 
+/*
 app.listen(3000, () => {
 	console.log(`Servidor escuchando en puerto ${3000}`)
 })
+*/
