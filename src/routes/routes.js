@@ -12,6 +12,8 @@ const openai = new OpenAI({
 
 
 router.get("/", async(req, res) => {
+	let msgError = "No se pudo cargar el dato cultural"
+
 	try {
 
 //		console.log("→ Petición recibida")
@@ -38,7 +40,6 @@ router.get("/", async(req, res) => {
 
 		res.render("index", {dato : response.output_text})
 */
-		let msgError = "No se pudo cargar el dato cultural"
 
 		const filePath = path.join(process.cwd(), "data", "data.json")
 
