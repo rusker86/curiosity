@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import fs from "fs/promises"
 import "dotenv/config"
 import path from "path"
+import bodyParser from "body-parser"
 
 const router = Router()
 /*
@@ -42,19 +43,43 @@ router.get("/", async(req, res) => {
 		res.render("index", {dato : response.output_text})
 */
 
-		const filePath = path.join(process.cwd(), "data", "data.json")
+		const filePathData = path.join(process.cwd(), "data", "data.json")
+		const data = await fs.readFile(filePathData, "utf8")
 
-		const data = await fs.readFile(filePath, "utf8")
+		const filePathCategory = path.join(process.cwd(), "data", "category.json")
+		const dataCategory = await fs.readFile(filePathCategory, "utf8")
 
 		const json = JSON.parse(data)
+		const jsonCategory = JSON.parse(dataCategory)
 
 		const rnd =  Math.floor(Math.random() * json.length)
 
-		res.render("index", { dato: json[rnd].msg })
+		res.render("index", { dato: json[rnd].msg, categoria: jsonCategory.category })
 	} catch(error) {
 		res.render("index", { dato: msgError })
 		console.error(error)
 	}
 })
 
-export default router
+router.post("/", async (req, res) => {
+	try {
+		const category = req.body.category || "all"; // category viene del select
+		const filePath = path.join(process.cwd(), "data", "data.json");
+		const data = await fs.readFile(filePath, "utf8");
+		const json = JSON.parse(data);
+
+		// Filtrar por categoría
+		const filtered = category === "all" 
+			? json 
+			: json.filter(item => item.category === category);
+
+		const rnd = Math.floor(Math.random() * filtered.length);
+
+		res.render("index", { dato: filtered[rnd].msg, selectedCategory: category });
+	} catch (error) {
+		console.error(error);
+		res.render("index", { dato: "No se pudo cargar el dato cultural" });
+	}
+});
+
+export default router;

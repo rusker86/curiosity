@@ -16,9 +16,27 @@
 			
 			<hr>
 
+			<form action="/" method="post" id="categoryForm">
+				<select name="category" id="category">
+					<% for(let i = 0; i < categoria.length; i++) { %>
+						<option value="categoria"> <%= categoria[i] %> </option>
+					<%}%>
+				</select>
+			</form>
+
 			<h2>¿Sabías qué...?</h2>
 
 			<p> <q> <%= dato %> </q> </p>
 		</section>
+
 	</body>
+	
+	<script>
+		const select = document.getElementById("category");
+		const form = document.getElementById("categoryForm");
+
+		select.addEventListener("change", () => {
+			form.submit();
+		});
+	</script>
 </html>

@@ -1,12 +1,14 @@
 import express from "express"
 import routes from "../src/routes/routes.js"
 import path from "path"
+import bodyParser from "body-parser"
 
 const app = express()
 
 app.set("view engine", "ejs")
 app.set("views", path.join(process.cwd(), "views"))
 
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(path.join(process.cwd(), "public")))
 
 app.use("/", routes)
