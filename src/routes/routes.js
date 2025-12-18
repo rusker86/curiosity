@@ -2,6 +2,7 @@ import { Router } from "express"
 import OpenAI from "openai";
 import fs from "fs/promises"
 import "dotenv/config"
+import path from "path"
 
 const router = Router()
 /*
